@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="android/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="android/lib/mpandroidchartlibrary-2-2-4.jar"/>
+	<classpathentry kind="lib" path="/Users/adrienblot/Library/Application Support/Titanium/mobilesdk/osx/5.3.0-custom/android/titanium.jar"/>
+	<classpathentry kind="lib" path="/Users/adrienblot/Library/Application Support/Titanium/mobilesdk/osx/5.3.0-custom/android/kroll-apt.jar"/>
+	<classpathentry kind="lib" path="/Users/adrienblot/Library/Application Support/Titanium/mobilesdk/osx/5.3.0-custom/android/kroll-common.jar"/>
+	<classpathentry kind="lib" path="/Users/adrienblot/Library/Application Support/Titanium/mobilesdk/osx/5.3.0-custom/android/kroll-v8.jar"/>
+	<classpathentry kind="lib" path="/Users/adrienblot/application/android-sdk-macosx/platforms/android-23/android.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
