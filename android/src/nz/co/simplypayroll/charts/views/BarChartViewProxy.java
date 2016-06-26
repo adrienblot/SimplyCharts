@@ -14,6 +14,7 @@ import nz.co.simplypayroll.charts.components.AxisBaseProxy;
 import nz.co.simplypayroll.charts.components.XAxisProxy;
 import nz.co.simplypayroll.charts.components.YAxisProxy;
 import nz.co.simplypayroll.charts.components.LegendProxy;
+import nz.co.simplypayroll.charts.components.CustomMarkerViewProxy;
 
 import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.KrollModule;
@@ -35,6 +36,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.components.MarkerView;
 
 // The proxy is declared with the @Kroll.proxy annotation
 
@@ -105,6 +107,7 @@ public class BarChartViewProxy extends TiViewProxy
 
 	private static final int MSG_SET_COLOR = 70000;
 	private static final int MSG_SET_DATA = 70001;
+	private static final int MSG_SET_MARKERVIEW = 70002;
 	
 	/*@Kroll.setProperty(retain=false)
 	public void setColor(final String color) 
@@ -167,6 +170,36 @@ public class BarChartViewProxy extends TiViewProxy
 		}	
 
 		setProperty("data", dataProxy, true);
+	}
+
+	@Kroll.setProperty @Kroll.method 
+	public void setMarkerView(final CustomMarkerViewProxy markerviewProxy) {
+		Log.d(LCAT,"[VIEWPROXY LIFECYCLE EVENT] Property Set: setColor");
+		
+		// Get the view object from the proxy and set the color
+		if (view != null) {
+			if (!TiApplication.isUIThread()) {
+				TiMessenger.sendBlockingMainMessage(new Handler(TiMessenger.getMainMessenger().getLooper(), new Handler.Callback() {
+					public boolean handleMessage(Message msg) {
+						switch (msg.what) {
+							case MSG_SET_MARKERVIEW: {
+								AsyncResult result = (AsyncResult) msg.obj;
+								BarChartView chartView = (BarChartView)view; 
+								chartView.setMarkerView((MarkerView)markerviewProxy.getOrCreateView().getNativeView());
+								result.setResult(null);
+								return true;
+							}
+						}
+						return false;
+					}
+				}).obtainMessage(MSG_SET_MARKERVIEW), markerviewProxy);
+			} else {
+				BarChartView chartView = (BarChartView)view; 
+				chartView.setMarkerView((MarkerView)markerviewProxy.getOrCreateView().getNativeView());
+			}
+		}	
+
+		setProperty("markerView", markerviewProxy, true);
 	}
 
 	@Kroll.getProperty @Kroll.method

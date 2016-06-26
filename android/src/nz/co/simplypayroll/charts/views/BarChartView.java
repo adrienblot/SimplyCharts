@@ -23,13 +23,16 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.components.MarkerView;
 
 import nz.co.simplypayroll.charts.data.BarDataProxy;
+import nz.co.simplypayroll.charts.components.CustomMarkerViewProxy;
+import nz.co.simplypayroll.charts.components.CustomMarkerView;
 
 public class BarChartView extends TiUIView 
 {
 	// Standard Debugging variables
-	private static final String LCAT = "TiChartsModule";
+	private static final String LCAT = "BarChartView";
 	
 	private static final String PROPERTY_COLOR = "color";
 	private static final String PROPERTY_BACKGROUND_COLOR = "backgroundColor";
@@ -48,6 +51,7 @@ public class BarChartView extends TiUIView
 	private static final String PROPERTY_BORDER_WIDTH = "borderWidth";
 	private static final String PROPERTY_MAX_VISIBLE_VALUE_COUNT = "maxVisibleValueCount";
 	private static final String PROPERTY_DATA = "data";
+	private static final String PROPERTY_MARKERVIEW = "markerView";
 
 	public BarChartView(TiViewProxy proxy) 
 	{
@@ -161,6 +165,18 @@ public class BarChartView extends TiUIView
 			chart.setData((BarData)dataProxy.data);			
 		}
 
+		if (props.containsKey(PROPERTY_MARKERVIEW)) {
+			changed = true;
+			Log.d(LCAT,"[processProperties] prop " + props.get(PROPERTY_MARKERVIEW));
+			CustomMarkerViewProxy markerviewProxy = (CustomMarkerViewProxy)props.get(PROPERTY_MARKERVIEW);
+			Log.d(LCAT,"[processProperties] markerviewProxy " + markerviewProxy);
+			CustomMarkerView markerView = (CustomMarkerView)markerviewProxy.getOrCreateView();
+			Log.d(LCAT,"[processProperties] markerview Created " + markerView);
+			MarkerView nativeView = (MarkerView)markerView.getNativeView();
+			Log.d(LCAT,"[processProperties] nativeView " + nativeView);
+			chart.setMarkerView((MarkerView)nativeView);			
+		}
+
 		if(changed) {
 			chart.invalidate();
 		}
@@ -196,6 +212,11 @@ public class BarChartView extends TiUIView
 		BarChart chart = (BarChart)getNativeView();    
 		chart.setData(data);
 		chart.invalidate();		
+	}
+
+	public void setMarkerView(MarkerView markerView) {
+		BarChart chart = (BarChart)getNativeView();    
+		chart.setMarkerView(markerView);	
 	}
 
 	public Legend getLegend() {	

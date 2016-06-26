@@ -4,11 +4,16 @@ import nz.co.simplypayroll.charts.TiChartsModule;
 
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
+ import org.appcelerator.kroll.KrollRuntime;
 import org.appcelerator.titanium.TiApplication;
 import org.appcelerator.titanium.util.TiConvert;
 import org.appcelerator.titanium.util.TiUIHelper;
 
+import java.util.List;
+import java.util.Arrays;
+
 import com.github.mikephil.charting.data.ChartData;
+import com.github.mikephil.charting.components.YAxis.AxisDependency;
 
 @Kroll.proxy
 public class ChartDataProxy extends KrollProxy
@@ -29,85 +34,18 @@ public class ChartDataProxy extends KrollProxy
      * changed. Calling this performs all necessary recalculations needed when
      * the contained data has changed.
      */
-    /*@Kroll.method 
+    @Kroll.method 
     public void notifyDataChanged() {
-        init();
-    }*/
+       this.data.notifyDataChanged();
+    }
 
     /**
      * calc minimum and maximum y value over all datasets
      */
-    /*@Kroll.method 
+    @Kroll.method 
     public void calcMinMax(int start, int end) {
-
-        if (mDataSets == null || mDataSets.size() < 1) {
-
-            mYMax = 0f;
-            mYMin = 0f;
-        } else {
-
-            mYMin = Float.MAX_VALUE;
-            mYMax = -Float.MAX_VALUE;
-
-            for (int i = 0; i < mDataSets.size(); i++) {
-
-                IDataSet set = mDataSets.get(i);
-                set.calcMinMax(start, end);
-
-                if (set.getYMin() < mYMin)
-                    mYMin = set.getYMin();
-
-                if (set.getYMax() > mYMax)
-                    mYMax = set.getYMax();
-            }
-
-            if (mYMin == Float.MAX_VALUE) {
-                mYMin = 0.f;
-                mYMax = 0.f;
-            }
-
-            // left axis
-            T firstLeft = getFirstLeft();
-
-            if (firstLeft != null) {
-
-                mLeftAxisMax = firstLeft.getYMax();
-                mLeftAxisMin = firstLeft.getYMin();
-
-                for (IDataSet dataSet : mDataSets) {
-                    if (dataSet.getAxisDependency() == AxisDependency.LEFT) {
-                        if (dataSet.getYMin() < mLeftAxisMin)
-                            mLeftAxisMin = dataSet.getYMin();
-
-                        if (dataSet.getYMax() > mLeftAxisMax)
-                            mLeftAxisMax = dataSet.getYMax();
-                    }
-                }
-            }
-
-            // right axis
-            T firstRight = getFirstRight();
-
-            if (firstRight != null) {
-
-                mRightAxisMax = firstRight.getYMax();
-                mRightAxisMin = firstRight.getYMin();
-
-                for (IDataSet dataSet : mDataSets) {
-                    if (dataSet.getAxisDependency() == AxisDependency.RIGHT) {
-                        if (dataSet.getYMin() < mRightAxisMin)
-                            mRightAxisMin = dataSet.getYMin();
-
-                        if (dataSet.getYMax() > mRightAxisMax)
-                            mRightAxisMax = dataSet.getYMax();
-                    }
-                }
-            }
-
-            // in case there is only one axis, adjust the second axis
-            handleEmptyAxis(firstLeft, firstRight);
-        }
-    }*/
+        this.data.calcMinMax(start, end);        
+    }
 
     /** ONLY GETTERS AND SETTERS BELOW THIS */
 
@@ -116,22 +54,10 @@ public class ChartDataProxy extends KrollProxy
      *
      * @return
      */
-    /*@Kroll.method 
+    @Kroll.getProperty @Kroll.method 
     public int getDataSetCount() {
-        if (mDataSets == null)
-            return 0;
-        return mDataSets.size();
-    }*/
-
-    /**
-     * Returns the smallest y-value the data object contains.
-     *
-     * @return
-     */
-    /*@Kroll.getProperty @Kroll.method 
-    public float getYMin() {
-        return mYMin;
-    }*/
+        return this.data.getDataSetCount(); 
+    }
 
     /**
      * Returns the minimum y-value for the specified axis.
@@ -139,34 +65,69 @@ public class ChartDataProxy extends KrollProxy
      * @param axis
      * @return
      */
-    /*public float getYMin(AxisDependency axis) {
-        if (axis == AxisDependency.LEFT)
-            return mLeftAxisMin;
-        else
-            return mRightAxisMin;
-    }*/
+    @Kroll.method 
+    public Object getYMin(@Kroll.argument(optional=true) Object axis) {
+        if (axis == null) {
+            return this.data.getYMin();
+        } else if (axis instanceof String){
+            String axisTxt = TiConvert.toString(axis);
+            AxisDependency axisDependency = null;
+            switch(axisTxt) {
+                case "LEFT":
+                case "left":
+                    axisDependency = AxisDependency.LEFT;
+                    break;
+                case "RIGHT":
+                case "right":
+                    axisDependency = AxisDependency.RIGHT;
+                    break;
+                default:
+                    break;
+                
+            }
+            if(axisDependency != null)
+                return this.data.getYMin(axisDependency);
+            else
+                return KrollRuntime.UNDEFINED;
+        } else {
+            return KrollRuntime.UNDEFINED;
+        }
+    }
 
     /**
      * Returns the greatest y-value the data object contains.
      *
      * @return
      */
-    /*public float getYMax() {
-        return mYMax;
-    }*/
+    @Kroll.method 
+    public Object getYMax(@Kroll.argument(optional=true) Object axis) {
+        if (axis == null) {
+            return this.data.getYMax();
+        } else if (axis instanceof String){
+            String axisTxt = TiConvert.toString(axis);
+            AxisDependency axisDependency = null;
+            switch(axisTxt) {
+                case "LEFT":
+                case "left":
+                    axisDependency = AxisDependency.LEFT;
+                    break;
+                case "RIGHT":
+                case "right":
+                    axisDependency = AxisDependency.RIGHT;
+                    break;
+                default:
+                    break;
+                
+            }
+            if(axisDependency != null)
+                return this.data.getYMax(axisDependency);
+            else
+                return KrollRuntime.UNDEFINED;
+        } else {
+            return KrollRuntime.UNDEFINED;
+        }
+    }
 
-    /**
-     * Returns the maximum y-value for the specified axis.
-     *
-     * @param axis
-     * @return
-     */
-    /*public float getYMax(AxisDependency axis) {
-        if (axis == AxisDependency.LEFT)
-            return mLeftAxisMax;
-        else
-            return mRightAxisMax;
-    }*/
 
     /**
      * returns the maximum length (in characters) across all values in the
@@ -195,18 +156,22 @@ public class ChartDataProxy extends KrollProxy
      *
      * @return
      */
-    /*@Kroll.getProperty @Kroll.method 
+    @Kroll.getProperty @Kroll.method 
     public List<String> getXVals() {
-        return mXVals;
-    }*/
+        return this.data.getXVals();
+    }
 
     /**
      * sets the x-values the chart represents
      *
      */
     /*@Kroll.setProperty @Kroll.method 
-    public void setXVals(List<String> xVals) {
-        mXVals = xVals;
+    public void setXVals(Object xVals) {
+        if (!(xVals.getClass().isArray())) {
+            throw new IllegalArgumentException("xVals must be an arrayof string");
+        }
+        List<String> listxVals = Arrays.asList(TiConvert.toStringArray((Object[])xVals));
+        this.data.setXVals(listxVals);
     }*/
 
     /**
@@ -214,24 +179,23 @@ public class ChartDataProxy extends KrollProxy
      *
      * @param xVal
      */
-    /*public void addXValue(String xVal) {
+    @Kroll.method 
+    public void addXValue(String xVal) {
 
-        if (xVal != null && xVal.length() > mXValMaximumLength)
-            mXValMaximumLength = xVal.length();
-
-        mXVals.add(xVal);
-    }*/
+        this.data.addXValue(xVal);
+    }
 
     /**
      * Removes the x-value at the specified index.
      *
      * @param index
      */
-    /*public void removeXValue(int index) {
-        mXVals.remove(index);
+    @Kroll.method
+    public void removeXValue(int index) {
+        this.data.removeXValue(index);
     }
 
-    public List<T> getDataSets() {
+    /*public List<T> getDataSets() {
         return mDataSets;
     }*/
 
@@ -241,9 +205,10 @@ public class ChartDataProxy extends KrollProxy
      *
      * @return
      */
-    /*public int getXValCount() {
-        return mXVals.size();
-    }*/
+    @Kroll.method
+    public int getXValCount() {
+        return this.data.getXValCount();
+    }
 
     /**
      * Get the Entry for a corresponding highlight object

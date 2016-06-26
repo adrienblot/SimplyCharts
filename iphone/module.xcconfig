@@ -10,7 +10,8 @@
 //
 // How to add a Framework (example)
 //
-// OTHER_LDFLAGS=$(inherited) -framework Foo
+FRAMEWORK_SEARCH_PATHS=$(inherited) "$(SRCROOT)/../../modules/iphone/nz.co.simplypayroll.charts/1.0.0/platform" "/Library/Application\ Support/Titanium/modules/iphone/nz.co.simplypayroll.charts/1.0.0/platform" "~/Library/Application\ Support/Titanium/modules/iphone/nz.co.simplypayroll.charts/1.0.0/platform"
+LD_RUNPATH_SEARCH_PATHS= $(inherited) "@executable_path/Frameworks" $(FRAMEWORK_SEARCH_PATHS)
 //
 // Adding a framework for a specific version(s) of iPhone:
 //
