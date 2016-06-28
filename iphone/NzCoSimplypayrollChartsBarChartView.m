@@ -203,6 +203,29 @@
     }
 }
 
+
+
+typedef void(^RefreshCallback)(ChartDataEntry*,  ChartHighlight*);
+
+
+-(void)setMarkerView_:(id)viewProxy
+{
+    ENSURE_TYPE(viewProxy, TiUIViewProxy);
+    TiUIView *view = ((TiUIViewProxy*)viewProxy).view;
+    BarChartView* barChartView = chart;
+    RefreshCallback refreshCallback = ^(ChartDataEntry* entry,  ChartHighlight* highlight) {
+        
+        if ([view.proxy _hasListeners:@"refresh"]) {
+            NSDictionary *value = [NSDictionary dictionaryWithObjectsAndKeys: NUMLONG([entry xIndex]),@"xIndex",NUMDOUBLE([entry value]),@"val",[entry data],@"data",nil];
+            NSDictionary *event = [NSDictionary dictionaryWithObjectsAndKeys:value,@"value",nil];
+        
+            [view.proxy fireEvent:@"refresh" withObject:event];
+        }
+    };
+    ChartMarker *markerView = [[ChartMarker alloc] initWithView: view refreshCallback:refreshCallback ];
+    [barChartView setMarker: markerView];
+}
+
 /*-(void)setMarkerView_:(id)markerView
 {
     

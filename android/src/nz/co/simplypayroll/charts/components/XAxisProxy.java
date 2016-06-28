@@ -114,7 +114,7 @@ public class XAxisProxy extends AxisBaseProxy
      */
     @Kroll.setProperty @Kroll.method
     public void setSpaceBetweenLabels(int spaceCharacters) {
-        ((XAxis) this.axis).setLabelRotationAngle(spaceCharacters);
+        ((XAxis) this.axis).setSpaceBetweenLabels(spaceCharacters);
     }
 
     /**

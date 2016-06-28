@@ -12,6 +12,7 @@
 #import "TiProxy.h"
 #import "NzCoSimplypayrollChartsChartDataProxy.h"
 #import "TiUtils.h"
+#import "TiConverter.h"
 #import "Charts-Swift.h"
 
 @interface NzCoSimplypayrollChartsBarDataProxy : NzCoSimplypayrollChartsChartDataProxy

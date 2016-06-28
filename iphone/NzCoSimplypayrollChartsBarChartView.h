@@ -12,13 +12,12 @@
 #import "Charts-Swift.h"
 #import "NzCoSimplypayrollChartsBarDataProxy.h"
 #import "TiUIView.h"
+#import "TiUIViewProxy.h"
 
 @interface NzCoSimplypayrollChartsBarChartView: TiUIView
 {
-    
-@private
     BarChartView *chart;
-
 }
+-(BarChartView*)chart;
 @end 
 #endif /* NzCoSimplypayrollChartsBarChartView_h */

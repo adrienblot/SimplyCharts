@@ -10,6 +10,11 @@
 #define NzCoSimplypayrollChartsBarChartViewProxy_h
 
 #import "Charts-Swift.h"
+#import "NzCoSimplypayrollChartsYAxisProxy.h"
+#import "NzCoSimplypayrollChartsXAxisProxy.h"
+#import "NzCoSimplypayrollChartsLegendProxy.h"
+#import "NzCoSimplypayrollChartsBarChartView.h"
+
 
 #import "TiViewProxy.h"
 @interface NzCoSimplypayrollChartsBarChartViewProxy: TiViewProxy

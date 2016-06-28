@@ -28,8 +28,7 @@
 {
     // This method is called from the dealloc method and is good place to
     // release any objects and memory that have been allocated for the proxy.
-    
-    [chartData dealloc];
+    RELEASE_TO_NIL(chartData);
     [super _destroy];
 }
 

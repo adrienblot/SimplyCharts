@@ -29,7 +29,7 @@
     id xVals = [properties valueForKey: @"xVals"];
     if(xVals != nil) {
         ENSURE_ARRAY(xVals);
-        xValsArray = [self toStringArray: (NSArray *)xVals];
+        xValsArray = [TiConverter toStringArray: (NSArray *)xVals];
     }
     
     id dataSet = [properties valueForKey: @"data"];
@@ -80,17 +80,7 @@
     [super _initWithProperties:properties];
 }
 
--(NSArray<NSString *> *) toStringArray:(NSArray*) inArray
-{
-    NSMutableArray<NSString *> * outArray = [[NSMutableArray alloc] init];
-    NSEnumerator *enumerator = [inArray objectEnumerator];
-    id anObject;
-    while (anObject = [enumerator nextObject]) {
-        [outArray addObject:[TiUtils stringValue:anObject]];
-    }
-    
-    return outArray;
-}
+
 
 /*-(void)setData:(id)value
 {
@@ -146,21 +136,11 @@
 {
     NSArray<BarChartDataEntry*>* YVals = [self createEntryList: values];
     BarChartDataSet* result = [[BarChartDataSet alloc] initWithYVals:YVals label: label];
-    [result setColors: [self toColorArray: colors]];
+    [result setColors: [TiConverter toUIColorArray: colors]];
     return result;
 }
 
--(NSArray<UIColor *> *) toColorArray:(NSArray*) inArray
-{
-    NSMutableArray<UIColor *> * outArray = [[NSMutableArray alloc] init];
-    NSEnumerator *enumerator = [inArray objectEnumerator];
-    id anObject;
-    while (anObject = [enumerator nextObject]) {
-        [outArray addObject:[[TiUtils colorValue:anObject] _color] ];
-    }
-    
-    return outArray;
-}
+
 
 -(NSArray<BarChartDataEntry*>*)createEntryList:(id)values
 {
@@ -200,7 +180,7 @@
             id vals = [value valueForKey: @"vals"];
             if(vals != nil) {
                 ENSURE_ARRAY(vals);
-                NSArray<NSNumber *> * valArray = [self toFloatArray:vals];
+                NSArray<NSNumber *> * valArray = [TiConverter toFloatArray:vals];
                 id label = [value valueForKey: @"label"];
                 if(label != nil) {
                     ENSURE_STRING(label);
@@ -215,17 +195,7 @@
     return entry;
 }
 
--(NSArray<NSNumber *> *) toFloatArray:(NSArray*) inArray
-{
-    NSMutableArray<NSNumber *> * outArray = [[NSMutableArray alloc] init];
-    NSEnumerator *enumerator = [inArray objectEnumerator];
-    id anObject;
-    while (anObject = [enumerator nextObject]) {
-        [outArray addObject:NUMDOUBLE([TiUtils doubleValue:anObject def:0])];
-    }
 
-    return outArray;
-}
 
 
 @end

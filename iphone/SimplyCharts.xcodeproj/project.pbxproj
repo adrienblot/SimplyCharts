@@ -26,6 +26,13 @@
 		0E57F9FD1D1A4DB000DAC1F3 /* Charts-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E57F9FC1D1A4DB000DAC1F3 /* Charts-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E57FB211D1C89F700DAC1F3 /* NzCoSimplypayrollChartsBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E57FB201D1C89F700DAC1F3 /* NzCoSimplypayrollChartsBarChartView.m */; };
 		0E57FB231D1C8A1200DAC1F3 /* NzCoSimplypayrollChartsBarChartViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E57FB221D1C8A1200DAC1F3 /* NzCoSimplypayrollChartsBarChartViewProxy.m */; };
+		0E6DF6DD1D2081350016683C /* NzCoSimplypayrollChartsLegendProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DF6DC1D2081350016683C /* NzCoSimplypayrollChartsLegendProxy.m */; };
+		0E6DF6E11D2083640016683C /* TiConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E6DF6E01D2083640016683C /* TiConverter.h */; };
+		0E6DF6E31D2083770016683C /* TiConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DF6E21D2083770016683C /* TiConverter.m */; };
+		0E6DF6E51D209C2A0016683C /* NzCoSimplypayrollChartsAxisBaseProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DF6E41D209C2A0016683C /* NzCoSimplypayrollChartsAxisBaseProxy.m */; };
+		0E6DF6E71D209C480016683C /* NzCoSimplypayrollChartsXAxisProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DF6E61D209C480016683C /* NzCoSimplypayrollChartsXAxisProxy.m */; };
+		0E6DF6E91D209C650016683C /* NzCoSimplypayrollChartsYAxisProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DF6E81D209C650016683C /* NzCoSimplypayrollChartsYAxisProxy.m */; };
+		0E6DF6EF1D20D39A0016683C /* CustomMarkerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DF6EE1D20D39A0016683C /* CustomMarkerView.m */; };
 		0ECFB2221D13BC00001AF741 /* NzCoSimplypayrollChartsChartDataProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ECFB2211D13BC00001AF741 /* NzCoSimplypayrollChartsChartDataProxy.h */; };
 		0ECFB2241D174775001AF741 /* NzCoSimplypayrollChartsBarDataProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFB2231D174775001AF741 /* NzCoSimplypayrollChartsBarDataProxy.m */; };
 		0ECFB2261D174A16001AF741 /* NzCoSimplypayrollChartsChartDataProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFB2251D174A16001AF741 /* NzCoSimplypayrollChartsChartDataProxy.m */; };
@@ -54,6 +61,18 @@
 		0E57FB1F1D1C89E500DAC1F3 /* NzCoSimplypayrollChartsBarChartViewProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NzCoSimplypayrollChartsBarChartViewProxy.h; sourceTree = "<group>"; };
 		0E57FB201D1C89F700DAC1F3 /* NzCoSimplypayrollChartsBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NzCoSimplypayrollChartsBarChartView.m; sourceTree = "<group>"; };
 		0E57FB221D1C8A1200DAC1F3 /* NzCoSimplypayrollChartsBarChartViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NzCoSimplypayrollChartsBarChartViewProxy.m; sourceTree = "<group>"; };
+		0E6DF6DC1D2081350016683C /* NzCoSimplypayrollChartsLegendProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NzCoSimplypayrollChartsLegendProxy.m; sourceTree = "<group>"; };
+		0E6DF6DE1D2081480016683C /* NzCoSimplypayrollChartsLegendProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NzCoSimplypayrollChartsLegendProxy.h; sourceTree = "<group>"; };
+		0E6DF6E01D2083640016683C /* TiConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiConverter.h; sourceTree = "<group>"; };
+		0E6DF6E21D2083770016683C /* TiConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiConverter.m; sourceTree = "<group>"; };
+		0E6DF6E41D209C2A0016683C /* NzCoSimplypayrollChartsAxisBaseProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NzCoSimplypayrollChartsAxisBaseProxy.m; sourceTree = "<group>"; };
+		0E6DF6E61D209C480016683C /* NzCoSimplypayrollChartsXAxisProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NzCoSimplypayrollChartsXAxisProxy.m; sourceTree = "<group>"; };
+		0E6DF6E81D209C650016683C /* NzCoSimplypayrollChartsYAxisProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NzCoSimplypayrollChartsYAxisProxy.m; sourceTree = "<group>"; };
+		0E6DF6EA1D209C790016683C /* NzCoSimplypayrollChartsAxisBaseProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NzCoSimplypayrollChartsAxisBaseProxy.h; sourceTree = "<group>"; };
+		0E6DF6EB1D209C8B0016683C /* NzCoSimplypayrollChartsXAxisProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NzCoSimplypayrollChartsXAxisProxy.h; sourceTree = "<group>"; };
+		0E6DF6EC1D209C9C0016683C /* NzCoSimplypayrollChartsYAxisProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NzCoSimplypayrollChartsYAxisProxy.h; sourceTree = "<group>"; };
+		0E6DF6ED1D20D3880016683C /* CustomMarkerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomMarkerView.h; sourceTree = "<group>"; };
+		0E6DF6EE1D20D39A0016683C /* CustomMarkerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMarkerView.m; sourceTree = "<group>"; };
 		0ECFB21A1D13BBAB001AF741 /* NzCoSimplypayrollChartsBarDataProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NzCoSimplypayrollChartsBarDataProxy.h; path = Classes/NzCoSimplypayrollChartsBarDataProxy.h; sourceTree = "<group>"; };
 		0ECFB2201D13BBE1001AF741 /* NzCoSimplypayrollChartsLineDataProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NzCoSimplypayrollChartsLineDataProxy.h; path = Classes/NzCoSimplypayrollChartsLineDataProxy.h; sourceTree = "<group>"; };
 		0ECFB2211D13BC00001AF741 /* NzCoSimplypayrollChartsChartDataProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NzCoSimplypayrollChartsChartDataProxy.h; path = Classes/NzCoSimplypayrollChartsChartDataProxy.h; sourceTree = "<group>"; };
@@ -114,6 +133,7 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0E6DF6DF1D2083240016683C /* utils */,
 				0E502E6A1D13B99E00B26777 /* data */,
 				0E502E691D13B98200B26777 /* views */,
 				0E502E681D13B97500B26777 /* components */,
@@ -128,6 +148,14 @@
 		0E502E681D13B97500B26777 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				0E6DF6DC1D2081350016683C /* NzCoSimplypayrollChartsLegendProxy.m */,
+				0E6DF6DE1D2081480016683C /* NzCoSimplypayrollChartsLegendProxy.h */,
+				0E6DF6E41D209C2A0016683C /* NzCoSimplypayrollChartsAxisBaseProxy.m */,
+				0E6DF6E61D209C480016683C /* NzCoSimplypayrollChartsXAxisProxy.m */,
+				0E6DF6E81D209C650016683C /* NzCoSimplypayrollChartsYAxisProxy.m */,
+				0E6DF6EA1D209C790016683C /* NzCoSimplypayrollChartsAxisBaseProxy.h */,
+				0E6DF6EB1D209C8B0016683C /* NzCoSimplypayrollChartsXAxisProxy.h */,
+				0E6DF6EC1D209C9C0016683C /* NzCoSimplypayrollChartsYAxisProxy.h */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -155,6 +183,17 @@
 			name = data;
 			sourceTree = "<group>";
 		};
+		0E6DF6DF1D2083240016683C /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				0E6DF6E01D2083640016683C /* TiConverter.h */,
+				0E6DF6E21D2083770016683C /* TiConverter.m */,
+				0E6DF6ED1D20D3880016683C /* CustomMarkerView.h */,
+				0E6DF6EE1D20D39A0016683C /* CustomMarkerView.m */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +212,7 @@
 			files = (
 				0E57F9FD1D1A4DB000DAC1F3 /* Charts-Swift.h in Headers */,
 				0ECFB2221D13BC00001AF741 /* NzCoSimplypayrollChartsChartDataProxy.h in Headers */,
+				0E6DF6E11D2083640016683C /* TiConverter.h in Headers */,
 				AA747D9F0F9514B9006C5449 /* NzCoSimplypayrollCharts_Prefix.pch in Headers */,
 				24DD6CF91134B3F500162E58 /* NzCoSimplypayrollChartsModule.h in Headers */,
 				24DE9E1111C5FE74003F90F6 /* NzCoSimplypayrollChartsModuleAssets.h in Headers */,
@@ -263,8 +303,14 @@
 			files = (
 				24DD6CFA1134B3F500162E58 /* NzCoSimplypayrollChartsModule.m in Sources */,
 				0ECFB2261D174A16001AF741 /* NzCoSimplypayrollChartsChartDataProxy.m in Sources */,
+				0E6DF6DD1D2081350016683C /* NzCoSimplypayrollChartsLegendProxy.m in Sources */,
 				0E57FB231D1C8A1200DAC1F3 /* NzCoSimplypayrollChartsBarChartViewProxy.m in Sources */,
 				0E57FB211D1C89F700DAC1F3 /* NzCoSimplypayrollChartsBarChartView.m in Sources */,
+				0E6DF6EF1D20D39A0016683C /* CustomMarkerView.m in Sources */,
+				0E6DF6E71D209C480016683C /* NzCoSimplypayrollChartsXAxisProxy.m in Sources */,
+				0E6DF6E51D209C2A0016683C /* NzCoSimplypayrollChartsAxisBaseProxy.m in Sources */,
+				0E6DF6E31D2083770016683C /* TiConverter.m in Sources */,
+				0E6DF6E91D209C650016683C /* NzCoSimplypayrollChartsYAxisProxy.m in Sources */,
 				24DE9E1211C5FE74003F90F6 /* NzCoSimplypayrollChartsModuleAssets.m in Sources */,
 				0ECFB2241D174775001AF741 /* NzCoSimplypayrollChartsBarDataProxy.m in Sources */,
 			);
