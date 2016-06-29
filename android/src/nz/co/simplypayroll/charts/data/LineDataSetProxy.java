@@ -1,5 +1,6 @@
 package nz.co.simplypayroll.charts.data;
 
+import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -347,136 +348,23 @@ public class LineDataSetProxy extends LineRadarDataSetProxy {
     public FillFormatter getFillFormatter() {
         return mFillFormatter;
     }*/
-    /**
-     * Returns the array of y-values that this DataSet represents.
-     *
-     * @return
-     */
 
-    /**
-     * Sets the array of y-values that this DataSet represents, and calls notifyDataSetChanged()
-     *
-     * @return
-     */
-    @Kroll.setProperty @Kroll.method
-    public void setYVals(Object yVals) {
-        ((LineDataSet)dataSet).setYVals(TiConverter.toEntryList(yVals));
-    }
 
-    @Kroll.method
-    public void addEntryOrdered(Object e) {
-        Entry entry = TiConverter.toEntry(e);
-        if(entry != null) {
-            ((LineDataSet)dataSet).addEntryOrdered(entry);
-        }
-    }
 
-    @Kroll.method
-    public void addEntry(Object e) {
-        Entry entry = TiConverter.toEntry(e);
-        if(entry != null) {
-            ((LineDataSet)dataSet).addEntry(entry);
-        }
-    }
 
-    @Kroll.method
-    public void removeEntry(Object e) {
-        Entry entry = TiConverter.toEntry(e);
-        List<Entry> yVals = ((LineDataSet)dataSet).getYVals();
-        if(yVals != null && entry != null) {
-            Iterator<Entry> iterator = yVals.iterator();
-            Entry entryToRemove = null;
-            while(iterator.hasNext()){
-                Entry obj = iterator.next();
-                if(obj.equalTo(entry)) {
-                    entryToRemove = obj;
-                    break;
-                }
-            }
-            if(entryToRemove != null) {
-                ((LineDataSet)dataSet).removeEntry(entryToRemove);
-            }
-        }
-    }
 
-    @Kroll.method
-    public int getEntryIndex(Object e) {
-        Entry entry = TiConverter.toEntry(e);
-        List<Entry> yVals = ((LineDataSet)dataSet).getYVals();
-        if(yVals != null && entry != null) {
-            Iterator<Entry> iterator = yVals.iterator();
-            int i=0;
-            boolean found = false;
-            while(iterator.hasNext()){
-                Entry obj = iterator.next();
-                if(obj.equalTo(entry)) {
-                    found = true;
-                    break;
-                }
-                i++;
-            }
 
-            if(found) {
-                return i;
-            }
-        }
-        return -1;
-    }
 
-    @Kroll.method
-    public Object getEntryForXIndex(int xIndex, @Kroll.argument(optional=true) Object rounding) {
-        LineDataSet.Rounding position = LineDataSet.Rounding.CLOSEST;
-        if(rounding != null) {
-            position = TiConverter.StringtoRounding(TiConvert.toString(rounding));
-        }
 
-        return TiConverter.EntryToHashMap(((LineDataSet)dataSet).getEntryForXIndex(xIndex, position));
-    }
 
-    @Kroll.method
-    public Object getEntryForIndex(int Index) {
-        return TiConverter.EntryToHashMap(((LineDataSet)dataSet).getEntryForIndex(Index));
-    }
 
-    @Kroll.method
-    public int getEntryIndex(int xIndex, @Kroll.argument(optional=true) Object roundingText) {
-        LineDataSet.Rounding rounding = null;
-        if(roundingText != null) {
-            rounding = TiConverter.StringtoRounding(TiConvert.toString(roundingText));
-        }
 
-        return ((LineDataSet)dataSet).getEntryIndex(xIndex, rounding);
-    }
 
-    @Kroll.method
-    public float getYValForXIndex(int xIndex) {
-        return ((LineDataSet)dataSet).getYValForXIndex(xIndex);
-    }
 
-    @Kroll.method
-    public float[] getYValsForXIndex(int xIndex) {
-        return ((LineDataSet)dataSet).getYValsForXIndex(xIndex);
-    }
 
-    /**
-     * Returns all Entry objects at the given xIndex. INFORMATION: This method
-     * does calculations at runtime. Do not over-use in performance critical
-     * situations.
-     *
-     * @param xIndex
-     * @return
-     */
-    @Kroll.method
-    public Object[] getEntriesForXIndex(int xIndex) {
 
-        List<Entry> entries = ((LineDataSet)dataSet).getEntriesForXIndex(xIndex);
-        Object[] result = new Object[entries.size()];
 
-        Iterator<Entry> iterator = entries.iterator();
-        int i = 0;
-        while(iterator.hasNext()){
-            result[i] = TiConverter.EntryToHashMap(iterator.next());
-        }
-        return result;
-    }
+
+
+
 }

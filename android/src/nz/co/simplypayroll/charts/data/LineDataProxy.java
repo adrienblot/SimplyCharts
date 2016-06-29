@@ -2,6 +2,7 @@ package nz.co.simplypayroll.charts.data;
 
 import nz.co.simplypayroll.charts.TiChartsModule;
 import nz.co.simplypayroll.charts.data.ChartDataProxy;
+import nz.co.simplypayroll.charts.utils.TiConverter;
 
 import java.util.*;
 
@@ -21,7 +22,7 @@ import com.github.mikephil.charting.utils.Utils;
 @Kroll.proxy(creatableInModule = TiChartsModule.class)
 public class LineDataProxy extends ChartDataProxy
 {  
-	private static final String LCAT = "TiChartsModule";
+	private static final String LCAT = "LineDataProxy";
 
 	public LineDataProxy() {
 		super();
@@ -107,35 +108,7 @@ public class LineDataProxy extends ChartDataProxy
 
 	private  LineDataSet createDataSet(String label, Object values) 
 	{		
-		return new LineDataSet(this.createEntryList(values), label);
-	}
-
-	private  ArrayList<Entry> createEntryList(Object values) 
-	{
-		ArrayList<Entry> entryList = new ArrayList<Entry>();
-		if (values.getClass().isArray()) {
-			Object[] valueArray = (Object[])values;
-			
-			for (int index=0; index < valueArray.length; index++) {
-				Entry entry = this.createEntry(valueArray[index]);
-				if(entry != null) {
-					entryList.add(entry);
-				}
-			}
-		}
-		return entryList;
-	}
-
-	private  Entry createEntry(Object valueObject) 
-	{
-		Entry entry = null;
-		if (valueObject instanceof HashMap) {
-			HashMap<String, Object> value = (HashMap<String, Object>)valueObject;
-			if(value.containsKey("val") && value.containsKey("xIndex")) {
-	    		entry = new Entry(TiConvert.toFloat(value, "val"), TiConvert.toInt(value, "xIndex"));
-			}
-		}
-		return entry;
+		return new LineDataSet(TiConverter.toEntryList(values), label);
 	}
 
 }

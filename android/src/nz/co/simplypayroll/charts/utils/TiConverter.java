@@ -1,6 +1,7 @@
 package nz.co.simplypayroll.charts.utils;
 
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -112,6 +113,22 @@ public class TiConverter {
         return entryList;
     }
 
+    public static ArrayList<BarEntry> toBarEntryList(Object values)
+    {
+        ArrayList<BarEntry> entryList = new ArrayList<BarEntry>();
+        if (values.getClass().isArray()) {
+            Object[] valueArray = (Object[])values;
+
+            for (int index=0; index < valueArray.length; index++) {
+                BarEntry entry = toBarEntry(valueArray[index]);
+                if(entry != null) {
+                    entryList.add(entry);
+                }
+            }
+        }
+        return entryList;
+    }
+
     public static  Entry toEntry(Object valueObject)
     {
         Entry entry = null;
@@ -119,10 +136,32 @@ public class TiConverter {
             HashMap<String, Object> value = (HashMap<String, Object>)valueObject;
             if(value.containsKey("xIndex")) {
                 if(value.containsKey("val")) {
-                    if(value.containsKey("label"))
+                    if(value.containsKey("data"))
                         entry = new Entry(TiConvert.toFloat(value, "val"), TiConvert.toInt(value, "xIndex"), value.get("data"));
                     else
                         entry = new Entry(TiConvert.toFloat(value, "val"), TiConvert.toInt(value, "xIndex"));
+                }
+            }
+        }
+        return entry;
+    }
+
+    public static BarEntry toBarEntry(Object valueObject)
+    {
+        BarEntry entry = null;
+        if (valueObject instanceof HashMap) {
+            HashMap<String, Object> value = (HashMap<String, Object>)valueObject;
+            if(value.containsKey("xIndex")) {
+                if(value.containsKey("vals")) {
+                    if(value.containsKey("label"))
+                        entry = new BarEntry(TiConverter.toFloatArray((Object[])value.get("vals")), TiConvert.toInt(value, "xIndex"), TiConvert.toString(value, "label"));
+                    else
+                        entry = new BarEntry(TiConverter.toFloatArray((Object[])value.get("vals")), TiConvert.toInt(value, "xIndex"));
+                } else if(value.containsKey("val")) {
+                    if(value.containsKey("data"))
+                        entry = new BarEntry(TiConvert.toFloat(value, "val"), TiConvert.toInt(value, "xIndex"), value.get("data"));
+                    else
+                        entry = new BarEntry(TiConvert.toFloat(value, "val"), TiConvert.toInt(value, "xIndex"));
                 }
             }
         }
@@ -134,7 +173,18 @@ public class TiConverter {
         HashMap<String, Object> value = new HashMap<String, Object>();
         value.put("xIndex", entry.getXIndex());
         value.put("val", entry.getVal());
-        value.put("xIndex", entry.getData());
+        if(entry instanceof BarEntry) {
+            float[] vals = ((BarEntry)entry).getVals();
+            if(vals == null) {
+                value.put("data", entry.getData());
+            } else {
+                value.put("vals", vals);
+                value.put("label", TiConvert.toString(entry.getData()));
+            }
+        } else {
+            value.put("data", entry.getData());
+        }
+
         return value;
     }
 

@@ -8,32 +8,48 @@
 var win = Ti.UI.createWindow({
 	backgroundColor:'white'
 });
-var label = Ti.UI.createLabel();
-win.add(label);
 win.open();
 
 // TODO: write your module tests here
 var ticharts = require('nz.co.simplypayroll.charts');
-Ti.API.info("module is => " + ticharts);
 
-label.text = ticharts.example();
-
-Ti.API.info("module exampleProp is => " + ticharts.exampleProp);
-ticharts.exampleProp = "This is a test value";
 
 if (Ti.Platform.name == "android") {
-	var proxy = ticharts.createExample({
-		message: "Creating an example Proxy",
-		backgroundColor: "red",
-		width: 100,
-		height: 100,
-		top: 100,
-		left: 150
+	 //Create chart view
+	var chart = module.createLineChartView({ 
+	    backgroundColor: "#E5EFCE",  
+	    drawGridBackground: true,
+	    gridBackgroundColor: 'white',
+	    drawBorders: true,
+	    borderColor: "#74AD50",
+	    borderWidth: 2,
+	    maxVisibleValueCount: 2
 	});
 
-	proxy.printMessage("Hello world!");
-	proxy.message = "Hi world!.  It's me again.";
-	proxy.printMessage("Hello world!");
-	win.add(proxy);
+	win.add(chart);          
+
+	//Change legend properties
+	var legend = chart.getLegend();
+	legend.setPosition('ABOVE_CHART_LEFT');
+
+	//Create data
+	var lineDataSet = module.createLineDataSet({
+        label: 'line1',
+        yVals: [{xIndex: 0, val: 10 }, {xIndex: 1, val: 20 }, {xIndex: 3, val: 30 }]
+    });
+
+    lineDataSet.setDrawFilledEnabled(true);
+    lineDataSet.setFillColor('green');
+
+	var lineData = module.createLineData({
+	    xVals: ['x1', 'x2', 'x3'], 
+	    dataSets: lineDataSet // or [lineDataSet]
+	});
+	chart.setData(lineData);
+
+	//Change XAxis properties
+	var xAxis = chart.getXAxis();
+	xAxis.setPosition('BOTTOM');
+	xAxis.setTextColor("#74AD50");
 }
 

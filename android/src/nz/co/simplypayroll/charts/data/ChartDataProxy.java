@@ -1,6 +1,7 @@
 package nz.co.simplypayroll.charts.data;
 
 import nz.co.simplypayroll.charts.TiChartsModule;
+import nz.co.simplypayroll.charts.utils.TiConverter;
 
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
@@ -66,31 +67,11 @@ public class ChartDataProxy extends KrollProxy
      * @return
      */
     @Kroll.method 
-    public Object getYMin(@Kroll.argument(optional=true) Object axis) {
+    public float getYMin(@Kroll.argument(optional=true) Object axis) {
         if (axis == null) {
             return this.data.getYMin();
-        } else if (axis instanceof String){
-            String axisTxt = TiConvert.toString(axis);
-            AxisDependency axisDependency = null;
-            switch(axisTxt) {
-                case "LEFT":
-                case "left":
-                    axisDependency = AxisDependency.LEFT;
-                    break;
-                case "RIGHT":
-                case "right":
-                    axisDependency = AxisDependency.RIGHT;
-                    break;
-                default:
-                    break;
-                
-            }
-            if(axisDependency != null)
-                return this.data.getYMin(axisDependency);
-            else
-                return KrollRuntime.UNDEFINED;
         } else {
-            return KrollRuntime.UNDEFINED;
+            return this.data.getYMin(TiConverter.StringtoAxisDependency(TiConvert.toString(axis)));
         }
     }
 
@@ -100,31 +81,11 @@ public class ChartDataProxy extends KrollProxy
      * @return
      */
     @Kroll.method 
-    public Object getYMax(@Kroll.argument(optional=true) Object axis) {
+    public float getYMax(@Kroll.argument(optional=true) Object axis) {
         if (axis == null) {
             return this.data.getYMax();
-        } else if (axis instanceof String){
-            String axisTxt = TiConvert.toString(axis);
-            AxisDependency axisDependency = null;
-            switch(axisTxt) {
-                case "LEFT":
-                case "left":
-                    axisDependency = AxisDependency.LEFT;
-                    break;
-                case "RIGHT":
-                case "right":
-                    axisDependency = AxisDependency.RIGHT;
-                    break;
-                default:
-                    break;
-                
-            }
-            if(axisDependency != null)
-                return this.data.getYMax(axisDependency);
-            else
-                return KrollRuntime.UNDEFINED;
         } else {
-            return KrollRuntime.UNDEFINED;
+            return this.data.getYMin(TiConverter.StringtoAxisDependency(TiConvert.toString(axis)));
         }
     }
 

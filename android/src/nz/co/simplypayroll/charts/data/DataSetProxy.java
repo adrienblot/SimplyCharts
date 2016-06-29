@@ -1,11 +1,18 @@
 package nz.co.simplypayroll.charts.data;
 
+import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import org.appcelerator.kroll.annotations.Kroll;
+import org.appcelerator.titanium.util.TiConvert;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import nz.co.simplypayroll.charts.utils.TiConverter;
 
 /**
  * Created by adrienblot on 29/06/16.
@@ -58,6 +65,158 @@ public class DataSetProxy extends BaseDataSetProxy {
     public void clear() {
         ((DataSet)dataSet).clear();
     }
+
+    @Kroll.method
+    public void removeEntry(Object e) {
+        Entry entry = TiConverter.toEntry(e);
+        List<Entry> yVals = ((DataSet)dataSet).getYVals();
+        if(yVals != null && entry != null) {
+            Iterator<Entry> iterator = yVals.iterator();
+            Entry entryToRemove = null;
+            while(iterator.hasNext()){
+                Entry obj = iterator.next();
+                if(obj.equalTo(entry)) {
+                    entryToRemove = obj;
+                    break;
+                }
+            }
+            if(entryToRemove != null) {
+                ((DataSet)dataSet).removeEntry(entryToRemove);
+            }
+        }
+    }
+
+    @Kroll.method
+    public int getEntryIndex(Object e) {
+        Entry entry = TiConverter.toEntry(e);
+        List<Entry> yVals = ((DataSet)dataSet).getYVals();
+        if(yVals != null && entry != null) {
+            Iterator<Entry> iterator = yVals.iterator();
+            int i=0;
+            boolean found = false;
+            while(iterator.hasNext()){
+                Entry obj = iterator.next();
+                if(obj.equalTo(entry)) {
+                    found = true;
+                    break;
+                }
+                i++;
+            }
+
+            if(found) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Kroll.method
+    public Object getEntryForXIndex(int xIndex, @Kroll.argument(optional=true) Object rounding) {
+        DataSet.Rounding position = DataSet.Rounding.CLOSEST;
+        if(rounding != null) {
+            position = TiConverter.StringtoRounding(TiConvert.toString(rounding));
+        }
+
+        return TiConverter.EntryToHashMap(((DataSet)dataSet).getEntryForXIndex(xIndex, position));
+    }
+
+    @Kroll.method
+    public Object getEntryForIndex(int Index) {
+        return TiConverter.EntryToHashMap(((DataSet)dataSet).getEntryForIndex(Index));
+    }
+
+    @Kroll.method
+    public int getEntryIndex(int xIndex, @Kroll.argument(optional=true) Object roundingText) {
+        LineDataSet.Rounding rounding = null;
+        if(roundingText != null) {
+            rounding = TiConverter.StringtoRounding(TiConvert.toString(roundingText));
+        }
+
+        return ((DataSet)dataSet).getEntryIndex(xIndex, rounding);
+    }
+
+    @Kroll.method
+    public float getYValForXIndex(int xIndex) {
+        return ((DataSet)dataSet).getYValForXIndex(xIndex);
+    }
+
+    @Kroll.method
+    public float[] getYValsForXIndex(int xIndex) {
+        return ((DataSet)dataSet).getYValsForXIndex(xIndex);
+    }
+
+    /**
+     * Returns all Entry objects at the given xIndex. INFORMATION: This method
+     * does calculations at runtime. Do not over-use in performance critical
+     * situations.
+     *
+     * @param xIndex
+     * @return
+     */
+    @Kroll.method
+    public Object[] getEntriesForXIndex(int xIndex) {
+
+        List<Entry> entries = ((DataSet)dataSet).getEntriesForXIndex(xIndex);
+        Object[] result = new Object[entries.size()];
+
+        Iterator<Entry> iterator = entries.iterator();
+        int i = 0;
+        while(iterator.hasNext()){
+            result[i] = TiConverter.EntryToHashMap(iterator.next());
+        }
+        return result;
+    }
+
+    @Kroll.setProperty @Kroll.method
+    public void setYVals(Object yVals) {
+        if(dataSet instanceof LineDataSet) {
+            ((DataSet) dataSet).setYVals(TiConverter.toEntryList(yVals));
+        } else if(dataSet instanceof BarDataSet) {
+            ((DataSet) dataSet).setYVals(TiConverter.toBarEntryList(yVals));
+        }
+    }
+
+    @Kroll.getProperty @Kroll.method
+    public Object[] getYVals() {
+        List<Entry> entries = ((DataSet)dataSet).getYVals();
+        Object[] result = new Object[entries.size()];
+
+        Iterator<Entry> iterator = entries.iterator();
+        int i = 0;
+        while(iterator.hasNext()){
+            result[i] = TiConverter.EntryToHashMap(iterator.next());
+        }
+        return result;
+    }
+
+    @Kroll.method
+    public void addEntryOrdered(Object e) {
+        Entry entry = null;
+        if(dataSet instanceof LineDataSet) {
+            entry = TiConverter.toEntry(e);
+
+        } else if(dataSet instanceof BarDataSet) {
+            entry = TiConverter.toBarEntry(e);
+        }
+        if(entry != null) {
+            ((DataSet)dataSet).addEntryOrdered(entry);
+        }
+    }
+
+    @Kroll.method
+    public void addEntry(Object e) {
+        Entry entry = null;
+        if(dataSet instanceof LineDataSet) {
+            entry = TiConverter.toEntry(e);
+
+        } else if(dataSet instanceof BarDataSet) {
+            entry = TiConverter.toBarEntry(e);
+        }
+        if(entry != null) {
+            ((DataSet)dataSet).addEntry(entry);
+        }
+    }
+
 
     /*@Override
     public int getEntryIndex(Entry e) {

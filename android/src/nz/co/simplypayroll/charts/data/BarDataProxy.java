@@ -23,7 +23,7 @@ import com.github.mikephil.charting.utils.Utils;
 @Kroll.proxy(creatableInModule = TiChartsModule.class)
 public class BarDataProxy extends ChartDataProxy
 {  
-	private static final String LCAT = "TiChartsModule";
+	private static final String LCAT = "BarDataProxy";
 
 	public BarDataProxy() {
 		super();
@@ -50,33 +50,30 @@ public class BarDataProxy extends ChartDataProxy
 			xVals = TiConvert.toStringArray((Object[])d);
 		}
 		
-		if(options.containsKey("data")) {
-			Object d = options.get("data");
+		if(options.containsKey("dataSets")) {
+			Object d = options.get("dataSets");
 			data = new ArrayList<IBarDataSet>();
 			if (d instanceof HashMap) {
 				HashMap<String, Object> sets = (HashMap<String, Object>) d;
 				Set set = sets.entrySet();
 			    Iterator i = set.iterator(); 
 			    while(i.hasNext()) {
-			        Map.Entry me = (Map.Entry)i.next();
-			        Log.d(LCAT, "PROXY LIFECYCLE EVENT] " + me.getKey() + ": " + me.getValue());
-			        Object dataSet = me.getValue();
-			        if (dataSet instanceof HashMap) {
-			        	KrollDict args = new KrollDict((HashMap)dataSet);
-			        	if(args.containsKey("values")) {
-			        		if(args.containsKey("color")) {
-			        			data.add(this.createDataSet(TiConvert.toString(me.getKey()), args.get("values"), TiConvert.toString(args.get("color"))));
-			        		} else if(args.containsKey("colors")) {
-			        			String[] colorArray = TiConvert.toStringArray((Object[])args.get("colors"));
-			        			data.add(this.createDataSet(TiConvert.toString(me.getKey()), args.get("values"), colorArray));
-			        		} else {
-			        			data.add(this.createDataSet(TiConvert.toString(me.getKey()), dataSet));
-			        		}
-			        	}			        	
-			        } else if (dataSet.getClass().isArray()) {
-			        	data.add(this.createDataSet(TiConvert.toString(me.getKey()), dataSet));
-			        }		        
-			    }
+					Map.Entry me = (Map.Entry)i.next();
+					Log.d(LCAT, "PROXY LIFECYCLE EVENT] " + me.getKey() + ": " + me.getValue());
+
+					data.add(this.createDataSet(TiConvert.toString(me.getKey()), me.getValue()));
+
+				}
+			} else if(d.getClass().isArray()) {
+				Object[] inArray = (Object[])d;
+				for (int i = 0; i < inArray.length; i++) {
+					Object dataSet = inArray[i];
+					if(d instanceof BarDataSetProxy) {
+						data.add((BarDataSet)((BarDataSetProxy)dataSet).dataSet);
+					}
+				}
+			} else if(d instanceof BarDataSetProxy) {
+				data.add((BarDataSet)((BarDataSetProxy)d).dataSet);
 			}
 		}
 		
