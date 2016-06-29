@@ -2,6 +2,7 @@ package nz.co.simplypayroll.charts.components;
 
 import nz.co.simplypayroll.charts.TiChartsModule;
 import nz.co.simplypayroll.charts.components.AxisBaseProxy;
+import nz.co.simplypayroll.charts.utils.TiConverter;
 
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
@@ -38,19 +39,7 @@ public class YAxisProxy extends AxisBaseProxy {
 	@Kroll.getProperty
 	@Kroll.method
 	public String getAxisDependency() {
-		AxisDependency axisDependency = ((YAxis) this.axis).getAxisDependency();
-		String txtAxisDependency = "";
-		switch(axisDependency) {
-			case LEFT:
-				txtAxisDependency = "LEFT";
-				break;
-			case RIGHT:
-				txtAxisDependency = "RIGHT";
-				break;
-			default:
-				break;
-        }
-		return txtAxisDependency;
+		return TiConverter.AxisDependencytoString(((YAxis) this.axis).getAxisDependency());
 	}
 
 	/**

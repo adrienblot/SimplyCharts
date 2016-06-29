@@ -2,6 +2,7 @@ package nz.co.simplypayroll.charts.data;
 
 import nz.co.simplypayroll.charts.TiChartsModule;
 import nz.co.simplypayroll.charts.data.ChartDataProxy;
+import nz.co.simplypayroll.charts.utils.TiConverter;
 
 import java.util.*;
 
@@ -18,6 +19,7 @@ import com.github.mikephil.charting.data.*;
 import com.github.mikephil.charting.interfaces.datasets.*;
 import com.github.mikephil.charting.utils.Utils;
 
+
 @Kroll.proxy(creatableInModule = TiChartsModule.class)
 public class BarDataProxy extends ChartDataProxy
 {  
@@ -25,7 +27,6 @@ public class BarDataProxy extends ChartDataProxy
 
 	public BarDataProxy() {
 		super();
-		Utils.init(TiApplication.getInstance().getApplicationContext().getResources());
 	}
 
 	@Override
@@ -121,18 +122,11 @@ public class BarDataProxy extends ChartDataProxy
 		return dataSet;
 	}
 
-	 public int[] toColorArray(String[] inArray) {
-		int[] outArray = new int[inArray.length];
-		for (int i = 0; i < inArray.length; i++) {
-			outArray[i] = TiConvert.toColor(inArray[i]);
-		}
-		return outArray;
-	}
 
 	private  BarDataSet createDataSet(String label, Object values, String[] colors) 
 	{		
 		BarDataSet dataSet = new BarDataSet(this.createEntryList(values), label);
-		dataSet.setColors(toColorArray(colors));
+		dataSet.setColors(TiConverter.toColorArray(colors));
 		return dataSet;
 	}
 
@@ -169,21 +163,15 @@ public class BarDataProxy extends ChartDataProxy
 						throw new IllegalArgumentException("xVals must be an array of string");
 					}					
 					if(value.containsKey("label"))
-		    			entry = new BarEntry(toFloatArray((Object[])d), TiConvert.toInt(value, "xIndex"), TiConvert.toString(value, "label"));
+		    			entry = new BarEntry(TiConverter.toFloatArray((Object[])d), TiConvert.toInt(value, "xIndex"), TiConvert.toString(value, "label"));
 		    		else
-		    			entry = new BarEntry(toFloatArray((Object[])d), TiConvert.toInt(value, "xIndex"));
+		    			entry = new BarEntry(TiConverter.toFloatArray((Object[])d), TiConvert.toInt(value, "xIndex"));
 				}
 			}
 		}
 		return entry;
 	}
 
-	public static float[] toFloatArray(Object[] inArray) {
-		float[] outArray = new float[inArray.length];
-		for (int i = 0; i < inArray.length; i++) {
-			outArray[i] = ((Number) inArray[i]).floatValue();
-		}
-		return outArray;
-	}
+
 
 }

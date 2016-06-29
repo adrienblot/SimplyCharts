@@ -65,6 +65,7 @@ public class BarChartView extends TiUIView
 		
 		// Set the view as the native view. You must set the native view
 		// for your view to be rendered correctly.
+
 		setNativeView(new BarChart(TiApplication.getInstance().getApplicationContext()));
 	}
 		

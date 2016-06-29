@@ -25,7 +25,6 @@ public class LineDataProxy extends ChartDataProxy
 
 	public LineDataProxy() {
 		super();
-		Utils.init(TiApplication.getInstance().getApplicationContext().getResources());
 	}
 
 	@Override
@@ -49,8 +48,8 @@ public class LineDataProxy extends ChartDataProxy
 			xVals = TiConvert.toStringArray((Object[])d);
 		}
 		
-		if(options.containsKey("data")) {
-			Object d = options.get("data");
+		if(options.containsKey("dataSets")) {
+			Object d = options.get("dataSets");
 			data = new ArrayList<ILineDataSet>();
 			if (d instanceof HashMap) {
 				HashMap<String, Object> sets = (HashMap<String, Object>) d;
@@ -59,9 +58,20 @@ public class LineDataProxy extends ChartDataProxy
 			    while(i.hasNext()) {
 			        Map.Entry me = (Map.Entry)i.next();
 			        Log.d(LCAT, "PROXY LIFECYCLE EVENT] " + me.getKey() + ": " + me.getValue());
+
 			        data.add(this.createDataSet(TiConvert.toString(me.getKey()), me.getValue()));
 			        
 			    }
+			} else if(d.getClass().isArray()) {
+				Object[] inArray = (Object[])d;
+				for (int i = 0; i < inArray.length; i++) {
+					Object dataSet = inArray[i];
+					if(d instanceof LineDataSetProxy) {
+						data.add((LineDataSet)((LineDataSetProxy)dataSet).dataSet);
+					}
+				}
+			} else if(d instanceof LineDataSetProxy) {
+				data.add((LineDataSet)((LineDataSetProxy)d).dataSet);
 			}
 		}
 		

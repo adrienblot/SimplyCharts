@@ -14,6 +14,7 @@ import java.util.Arrays;
 
 import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.components.YAxis.AxisDependency;
+import com.github.mikephil.charting.utils.Utils;
 
 @Kroll.proxy
 public class ChartDataProxy extends KrollProxy
@@ -23,11 +24,10 @@ public class ChartDataProxy extends KrollProxy
 	
 	
 	public ChartDataProxy() {
-		super();
+        super();
+        Utils.init(TiApplication.getInstance().getApplicationContext().getResources());
 	}
-	
-	
-	
+
 
     /**
      * Call this method to let the ChartData know that the underlying data has
