@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.0
+apiversion: 2
+architectures: armv7 arm64 i386 x86_64
+description: SimplyCharts
+author: ghnm
+license: Specify your license
+copyright: Copyright (c) 2016 by 
+
+# these should not be edited
+name: SimplyCharts
+moduleid: nz.co.simplypayroll.charts
+guid: b1922a89-a717-4b83-bff6-b6df2e7d5b08
+platform: iphone
+minsdk: 5.0.2.GA

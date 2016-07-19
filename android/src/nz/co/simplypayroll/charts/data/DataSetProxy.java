@@ -126,7 +126,7 @@ public class DataSetProxy extends BaseDataSetProxy {
     }
 
     @Kroll.method
-    public int getEntryIndex(int xIndex, @Kroll.argument(optional=true) Object roundingText) {
+    public int getEntryIndexForXIndex(int xIndex, @Kroll.argument(optional=true) Object roundingText) {
         LineDataSet.Rounding rounding = null;
         if(roundingText != null) {
             rounding = TiConverter.StringtoRounding(TiConvert.toString(roundingText));
